@@ -27,7 +27,7 @@ class Data
 {
 public:
 	//static DWORD OPCOdeFuncs[256];
-	static void HookBGFileNames();
+	static void HookOPCodes();
 	enum DR2DataPositions
 	{
 		DR2BGArrayPointer = 0x2FE778

@@ -24,7 +24,7 @@ int DebugLog(char const* const Format, ...)
 
 DWORD WINAPI MainThread(LPVOID param)
 {
-	Data::HookBGFileNames();
+	Data::HookOPCodes();
 	Functions::HookFunctions();
 
 	//Data::HookBGFileNames();

@@ -237,46 +237,47 @@ const char * DR2BGNAMES[1000][255] = {
 
 DWORD OPCOdeFuncs[256] = {0x0};
 
-void grabOPThing()
+
+DWORD jmpBackAdd = 0;
+void __declspec(naked) grabOPThing()
 {
 	_asm
 	{
 		mov edx, OPCOdeFuncs[eax * 4]
+		jmp[jmpBackAdd]
 	}
 }
 
-const Functions::FunctionData Functions::DR2functions[1] = {
-	{0x332A0, 0x10E,  Sound::VoiceLineMaths,  "FUNC_VOICEMATH"}//, 
-	//{0x7D2BE, 0x7,  grabOPThing,  "INST_ReadOPFunc"}
+const Functions::FunctionData Functions::DR2functions[2] = {
+	{0x332A0, 0x10E,  Sound::VoiceLineMaths,  "FUNC_VOICEMATH"}, 
+	{0x7D2BE, 0x7,  grabOPThing,  "INST_ReadOPFunc"}
 };
 
 void Functions::HookFunctions()
 {
-	//Detour::HookStringPtr(0x7D2C1, (DWORD)&OPCOdeFuncs);
-	//Console::WriteLine(std::to_string(Detour::GrabPointer(0x7D2C1)).c_str());
-	//Console::WriteLine(std::to_string((DWORD)&Sound::VoiceLineMaths).c_str());
 	
-	for (int a = 0; a < 1; a++)
+	for (int a = 0; a < 2; a++)
 	{
 		Detour::Hook(Functions::DR2functions[a].Address, Functions::DR2functions[a].Replacement, Functions::DR2functions[a].Size);
 		Console::WriteLine("%s has been hooked!", Functions::DR2functions[a].Name);
 	}
 }
 
-void Data::HookBGFileNames()
+void Data::HookOPCodes()
 {
 
 	for (int a = 0; a < 77; a++)
 	{
 		DWORD result = Detour::GrabPointer(0x30B910 + (4 * a));
 		Console::WriteLine(std::to_string(result).c_str());
-		if(result != 0)
-		{
-			OPCOdeFuncs[a] = result;
-		};
+		OPCOdeFuncs[a] = result;
+		//if(result != 0)
+		//{
+		//	
+		//};
 	}
-
-	OPCOdeFuncs[0xFF] = (DWORD)&TestingFuncs::CustomOPCodeTest;
+	jmpBackAdd = Detour::GetExactAddress(0x7D2BE + 0x7);
+	//OPCOdeFuncs[0xFF] = (DWORD)&TestingFuncs::CustomOPCodeTest;
 
 
 //
