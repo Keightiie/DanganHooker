@@ -31,7 +31,7 @@ DWORD WINAPI MainThread(LPVOID param)
 
 	while (true)
 	{
-		if (GetAsyncKeyState(VK_ESCAPE)) break;
+		//if (GetAsyncKeyState(VK_ESCAPE)) break;
 		//if (GetAsyncKeyState(VK_RETURN)) Movie(2);
 		Sleep(50);
 	}
@@ -53,7 +53,13 @@ BOOL WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved)
 
 		CreateThread(0, 0, MainThread, hModule, 0, 0);
 		break;
+
+		case DLL_PROCESS_DETACH:
+			Console::WriteLine("[DEBUG] DLL Process Detached.");
+		break;
 	}
+
+	
 
 	return TRUE;
 }

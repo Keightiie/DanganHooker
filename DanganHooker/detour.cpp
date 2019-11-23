@@ -3,19 +3,6 @@
 #include "Console.h"
 #include <string>
 
-static const char * bg100[] = 
-{
-	"bg_000_00_file2.dat",
-	"bg_000_00_opt.dat",
-	"bg_000_00_place2.dat",
-	"bg_000_00_bone_pos.dat",
-	"bg_000_p00.gmo",
-	"floor_dummy_00.tga",
-	"wall_dummy_00.tga"
-};
-
-
-
 bool Detour::Hook(DWORD hookAddress, void * replacementFunc, int length)
 {
 	if (length < 5)
@@ -66,16 +53,31 @@ bool Detour::HookStringPtr(DWORD hookAddress, DWORD replacementPtr)
 	DWORD AbsoluteAddress = GetExactAddress(hookAddress);
 	Console::Write("Replacing string pointer at: ");
 	Console::WriteLine(std::to_string(AbsoluteAddress).c_str());
-	//DWORD address = *(DWORD*)(AbsoluteAddress);
-	//const char *result = reinterpret_cast<char*>(address);
 
 	*(DWORD*)AbsoluteAddress = replacementPtr;
 
 
 
+	return true;
+}
+
+bool Detour::WriteByte(DWORD ByteAdress, char NewByte)
+{
+	DWORD AbsoluteAddress = GetExactAddress(ByteAdress);
+	//char* result = reinterpret_cast<char*>(AbsoluteAddress);
+	//*result = NewByte;
 
 
-	//Console::WriteLine(result);
+	char * ByteToWriteTo = (char*)AbsoluteAddress;
+	DWORD curProtection;
+	VirtualProtect(ByteToWriteTo, 1, PAGE_EXECUTE_READWRITE, &curProtection);
+
+	memset(ByteToWriteTo, NewByte, 1);
+
+	DWORD temp;
+	VirtualProtect(ByteToWriteTo, 1, curProtection, &temp);
 
 	return true;
 }
+
+

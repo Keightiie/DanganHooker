@@ -13,6 +13,7 @@ public:
 	static DWORD GrabPointer(DWORD hookAddress);
 	static DWORD GetExactAddress(DWORD relativeAddress);
 	static bool HookStringPtr(DWORD hookAddress, DWORD replacementPtr);
+	static bool WriteByte(DWORD ByteAdress, char NewByte);
 
 };
 
