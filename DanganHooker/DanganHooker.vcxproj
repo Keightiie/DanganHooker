@@ -118,6 +118,7 @@
   <ItemGroup>
     <ClCompile Include="console.cpp" />
     <ClCompile Include="data.cpp" />
+    <ClCompile Include="File.cpp" />
     <ClCompile Include="Hook.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scripting.cpp" />
@@ -126,6 +127,7 @@
   <ItemGroup>
     <ClInclude Include="console.h" />
     <ClInclude Include="data.h" />
+    <ClInclude Include="File.h" />
     <ClInclude Include="Hook.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Scripting.h" />

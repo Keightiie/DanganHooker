@@ -9,7 +9,7 @@ DWORD Hook::AbsolouteAddress(DWORD ExeAddress)
 
 bool Hook::InitiateHooks()
 {
-	for (int a = 0; a < 2; a++)
+	for (int a = 0; a < 3; a++)
 	{
 		DetourInstructions(Data::Dangan2DetourInfo[a].AddressStart, Data::Dangan2DetourInfo[a].AddressEnd, Data::Dangan2DetourInfo[a].DetourFunction);
 	}
