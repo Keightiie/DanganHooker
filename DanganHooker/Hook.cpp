@@ -19,14 +19,20 @@ bool Hook::InitiateHooks()
 
 bool Hook::InitiateOpcodes()
 {
+	//Reads the memory for existing opcode addresses and stores them in the new array.
 	for (int a = 0; a < 77; a++)
 	{
 		Scripting::OperationFunctions[a] = ReadPointer(0x30B910 + (4 * a));
 	}
 	
-	//Writes the new opcode count to the check for the array.
+	//Overwrites the one byte in the opcode count compare since the instruction is too small to detour.
 	WriteByte(0x7D2B8, Scripting::Cnt_opcodes);
+
+	//Creates a jump to address for the function to return to.
 	Scripting::ADDRESS_ReturnGetOpFunc = AbsolouteAddress(Data::Dangan2DetourInfo[1].AddressEnd);
+
+	//Load custom opcodes into the new array.
+	Scripting::LoadCustomOpcodes();
 	return true;
 }
 
