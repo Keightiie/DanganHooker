@@ -18,9 +18,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="detour.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,7 +27,10 @@
     <ClCompile Include="console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestingFuncs.cpp">
+    <ClCompile Include="Hook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,16 +41,16 @@
     <ClInclude Include="console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="detour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TestingFuncs.h">
+    <ClInclude Include="Hook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

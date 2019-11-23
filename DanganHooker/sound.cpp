@@ -120,9 +120,9 @@ LABEL_28:
 	FileNum += Line;
 	if (FileNum >= 8965)
 		return -1;
-	char ResultString[300];
-	std::snprintf(ResultString, 300, "Character: %d, Chapter %d, Voice: %d, File Number: %d", CharacterArg, ChapterArg, LineArg, FileNum);
-	Console::WriteLine(ResultString);
+	//char ResultString[300];
+	//std::snprintf(ResultString, 300, "Character: %d, Chapter %d, Voice: %d, File Number: %d", CharacterArg, ChapterArg, LineArg, FileNum);
+	//Console::WriteLine(ResultString);
 
 	return FileNum;
 

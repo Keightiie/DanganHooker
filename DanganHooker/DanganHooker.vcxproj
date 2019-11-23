@@ -118,18 +118,18 @@
   <ItemGroup>
     <ClCompile Include="console.cpp" />
     <ClCompile Include="data.cpp" />
-    <ClCompile Include="detour.cpp" />
+    <ClCompile Include="Hook.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scripting.cpp" />
     <ClCompile Include="sound.cpp" />
-    <ClCompile Include="TestingFuncs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console.h" />
     <ClInclude Include="data.h" />
-    <ClInclude Include="detour.h" />
+    <ClInclude Include="Hook.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Scripting.h" />
     <ClInclude Include="sound.h" />
-    <ClInclude Include="TestingFuncs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
