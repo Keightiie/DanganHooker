@@ -14,6 +14,17 @@ public:
 		const char* DetourName;
 	};
 
+	enum Languages 
+	{
+		Japanese = 0,
+		English = 1,
+		Chinese = 2,
+		Spanish = 3
+
+	};
+
+	static const int Langauge = Languages::English;
+
 	static const DetourInfo Dangan2DetourInfo[];
 
 };
