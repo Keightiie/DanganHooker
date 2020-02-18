@@ -1,6 +1,10 @@
 #pragma once
 #include <Windows.h>
 #include "sound.h"
+#include <string.h>
+#include <string>
+#include <iostream>
+#include <TlHelp32.h>
 
 
 class Data 
@@ -36,6 +40,8 @@ public:
 
 	static const DetourInfo Dangan2DetourInfo[];
 	static const DetourInfo DanganDetourInfo[];
+
+	static string GamePath;
 
 
 	//static const float * mypointer = reinterpret_cast<float*>(AbsolouteAddress(0x3A72C4));

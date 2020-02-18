@@ -40,7 +40,6 @@ int main(int argc, char* argv[])
 		system("CLS");
 		cout << "Looking for " << ProcessNames[Game] << ", please wait..." << endl;
 		cout << "If the game doesn't launch, make sure you have it installed on steam." << endl;
-		std::cout << Path << std::endl;
 		hProcSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 
 		if(Process32First(hProcSnap, &pe32))

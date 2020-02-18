@@ -3,7 +3,7 @@
 #include "File.h"
 
 using namespace std; 
-
+string Data::GamePath = "";
 
 const Data::DetourInfo Data::DanganDetourInfo[1] =
 {
