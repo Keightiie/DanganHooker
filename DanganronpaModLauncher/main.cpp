@@ -1,3 +1,4 @@
+#include <string>
 #include <iostream>
 #include <Windows.h>
 #include <TlHelp32.h>
@@ -13,13 +14,22 @@ enum DRGames
 
 bool InjectDLL(DWORD ProcessID);
 
+int Game = 1;
 char DanganHookerName[] = "DanganHooker.dll";
-char ProcessName[] = "DR2_us.exe";
-char ProcessNamev3[] = "Dangan3Win.exe";
+const char * ProcessNames[] = { "DR1_us.exe", "DR2_us.exe"};
+static string Path;
+
 typedef HINSTANCE(*fpLoadLibrary)(char *);
 
-int main() 
+int main(int argc, char* argv[])
 {
+	using std::string;
+	char basePath[255] = "";
+	_fullpath(basePath, argv[0], sizeof(basePath));
+	Path = basePath;
+	Path = Path.substr(0, Path.find_last_of("\\/"));
+	Path.append("\\");
+	
 	DWORD processID = NULL;
 
 	PROCESSENTRY32 pe32 = { sizeof(PROCESSENTRY32) };
@@ -28,15 +38,16 @@ int main()
 	while(!processID)
 	{
 		system("CLS");
-		cout << "Looking for " << ProcessName << ", please wait..." << endl;
+		cout << "Looking for " << ProcessNames[Game] << ", please wait..." << endl;
 		cout << "If the game doesn't launch, make sure you have it installed on steam." << endl;
+		std::cout << Path << std::endl;
 		hProcSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 
 		if(Process32First(hProcSnap, &pe32))
 		{
 			do
-			{
-				if(!strcmp(pe32.szExeFile, ProcessName))
+			{	
+				if(!strcmp(pe32.szExeFile, ProcessNames[Game]))
 				{
 					processID = pe32.th32ProcessID;
 					break;
@@ -77,7 +88,7 @@ bool InjectDLL(DWORD ProcessID)
 
 	hProc = OpenProcess(PROCESS_ALL_ACCESS, false, ProcessID);
 
-	char DLLPath[250] = "E:\\Users\\ziell\\source\\repos\\DanganHooker\\Release\\";
+	char *DLLPath = &Path[0];
 
 	strcat_s(DLLPath, 250, DanganHookerName);
 

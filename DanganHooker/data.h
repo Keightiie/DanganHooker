@@ -23,8 +23,21 @@ public:
 
 	};
 
+	enum Games
+	{
+		DR1 = 0,
+		DR2 = 1
+
+	};
+
+	static const int Game = Games::DR2;
+
 	static const int Langauge = Languages::English;
 
 	static const DetourInfo Dangan2DetourInfo[];
+	static const DetourInfo DanganDetourInfo[];
+
+
+	//static const float * mypointer = reinterpret_cast<float*>(AbsolouteAddress(0x3A72C4));
 
 };

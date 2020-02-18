@@ -9,30 +9,44 @@ DWORD Hook::AbsolouteAddress(DWORD ExeAddress)
 
 bool Hook::InitiateHooks()
 {
-	for (int a = 0; a < 3; a++)
+
+	if (Data::Game == Data::Games::DR2) 
 	{
-		DetourInstructions(Data::Dangan2DetourInfo[a].AddressStart, Data::Dangan2DetourInfo[a].AddressEnd, Data::Dangan2DetourInfo[a].DetourFunction);
+		for (int a = 0; a < 3; a++)
+		{
+			DetourInstructions(Data::Dangan2DetourInfo[a].AddressStart, Data::Dangan2DetourInfo[a].AddressEnd, Data::Dangan2DetourInfo[a].DetourFunction);
+		}
 	}
+	if (Data::Game == Data::Games::DR1) 
+	{
+		for (int a = 0; a < 1; a++)
+		{
+			DetourInstructions(Data::DanganDetourInfo[a].AddressStart, Data::DanganDetourInfo[a].AddressEnd, Data::DanganDetourInfo[a].DetourFunction);
+		}
+	}
+
 
 	return true;
 }
 
 bool Hook::InitiateOpcodes()
 {
-	//Reads the memory for existing opcode addresses and stores them in the new array.
-	for (int a = 0; a < 77; a++)
-	{
-		Scripting::OperationFunctions[a] = ReadPointer(0x30B910 + (4 * a));
+	if (Data::Game == Data::Games::DR2){
+		//Reads the memory for existing opcode addresses and stores them in the new array.
+		for (int a = 0; a < 77; a++)
+		{
+			Scripting::OperationFunctions[a] = ReadPointer(0x30B910 + (4 * a));
+		}
+		
+		//Overwrites the one byte in the opcode count compare since the instruction is too small to detour.
+		WriteByte(0x7D2B8, Scripting::Cnt_opcodes);
+
+		//Creates a jump to address for the function to return to.
+		Scripting::ADDRESS_ReturnGetOpFunc = AbsolouteAddress(Data::Dangan2DetourInfo[1].AddressEnd);
+
+		//Load custom opcodes into the new array.
+		Scripting::LoadCustomOpcodes();
 	}
-	
-	//Overwrites the one byte in the opcode count compare since the instruction is too small to detour.
-	WriteByte(0x7D2B8, Scripting::Cnt_opcodes);
-
-	//Creates a jump to address for the function to return to.
-	Scripting::ADDRESS_ReturnGetOpFunc = AbsolouteAddress(Data::Dangan2DetourInfo[1].AddressEnd);
-
-	//Load custom opcodes into the new array.
-	Scripting::LoadCustomOpcodes();
 	return true;
 }
 
@@ -91,7 +105,8 @@ void Hook::Init(int Game)
 
 	if (!Hooked) 
 	{
-		BaseAddress = (DWORD)GetModuleHandleA("DR2_us.exe");
+		if(Data::Game == Data::Games::DR2) BaseAddress = (DWORD)GetModuleHandleA("DR2_us.exe");
+		if (Data::Game == Data::Games::DR1) BaseAddress = (DWORD)GetModuleHandleA("DR1_us.exe");
 
 		if (InitiateHooks()) 
 		{
@@ -101,6 +116,11 @@ void Hook::Init(int Game)
 		{
 			Console::WriteLine("[DEBUG] Custom opcodes have been enabled!");
 		}
+
+		//Data::mypointer = reinterpret_cast<float*>(AbsolouteAddress(0x3A72C4)); 
+		//
+		//*Data::mypointer = 5000;
+
 
 		Hooked = true;
 	}
