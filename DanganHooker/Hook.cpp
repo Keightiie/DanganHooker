@@ -100,24 +100,13 @@ bool Hook::WriteByte(DWORD ByteAddress, BYTE Byte)
 	return false;
 }
 
-void Hook::Init(int Game)
+void Hook::Init()
 {
 
 	if (!Hooked) 
 	{
 		if(Data::Game == Data::Games::DR2) BaseAddress = (DWORD)GetModuleHandleA("DR2_us.exe");
 		if (Data::Game == Data::Games::DR1) BaseAddress = (DWORD)GetModuleHandleA("DR1_us.exe");
-
-		char path[256];
-
-		GetModuleFileName(GetModuleHandleA("DR2_us.exe"), path, sizeof(path));
-
-		Data::GamePath = path;
-		Data::GamePath = Data::GamePath.substr(0, Data::GamePath.find_last_of("\\/"));
-		Data::GamePath.append("\\");
-
-		
-		Console::WriteLine(path);
 
 		if (InitiateHooks()) 
 		{

@@ -4,6 +4,7 @@
 
 using namespace std; 
 string Data::GamePath = "";
+int Data::Game = -1;
 
 const Data::DetourInfo Data::DanganDetourInfo[1] =
 {

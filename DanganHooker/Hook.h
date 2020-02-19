@@ -23,7 +23,7 @@ private:
 
 
 public:
-	void Init(int Game);
+	void Init();
 
 	//Read from Memory
 	DWORD ReadPointer(DWORD PointerAddress);

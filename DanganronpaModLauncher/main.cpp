@@ -16,7 +16,8 @@ bool InjectDLL(DWORD ProcessID);
 
 int Game = 1;
 char DanganHookerName[] = "DanganHooker.dll";
-const char * ProcessNames[] = { "DR1_us.exe", "DR2_us.exe"};
+const char * ProcessNames[] = { "DR1_us.exe", "DR2_us.exe", "game.exe" };
+const char * GameIDs[] = { "413410", "413420", "555950" };
 static string Path;
 
 typedef HINSTANCE(*fpLoadLibrary)(char *);
@@ -31,10 +32,12 @@ int main(int argc, char* argv[])
 	Path.append("\\");
 	
 	DWORD processID = NULL;
-
+	
 	PROCESSENTRY32 pe32 = { sizeof(PROCESSENTRY32) };
 	HANDLE hProcSnap;
-	//ShellExecute(NULL, "open", "steam://rungameid/412420", NULL, NULL, SW_SHOWDEFAULT);
+	char steamUrl[64] = "";
+	std::snprintf(steamUrl, sizeof(steamUrl), "steam://rungameid/%s", GameIDs[Game]);
+	ShellExecute(NULL, "open", steamUrl, NULL, NULL, SW_SHOWDEFAULT);
 	while(!processID)
 	{
 		system("CLS");
@@ -95,11 +98,7 @@ bool InjectDLL(DWORD ProcessID)
 
 	bool MemoryWritten = WriteProcessMemory(hProc, paramAddr, DLLPath, strlen(DLLPath) + 1, NULL);
 
-
-
 	CreateRemoteThread(hProc, 0, 0, (LPTHREAD_START_ROUTINE)LoadLibraryAddr, paramAddr, 0, 0);
-
-
 
 	CloseHandle(hProc);
 	//Sleep(5000);
