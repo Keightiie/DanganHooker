@@ -34,7 +34,7 @@ public:
 
 	};
 
-	static const int Game = Games::DR2;
+	static int Game;
 
 	static const int Langauge = Languages::English;
 
