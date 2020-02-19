@@ -6,10 +6,9 @@
 
 using namespace std;
 
-const char * ModName = "MyFirstMod";
 const char * LanguageDirs[] = {"jp", "us", "ch", "sp"};
 
-const char * ArchiveRoots[] = {"archive:DrCommon/", "archive:Dr1/", "archive:Dr2/", "mods/MyFirstMod/Dr2/", "mods/MyFirstMod/Dr1/" };
+const char * ArchiveRoots[] = {"archive:DrCommon/", "archive:Dr1/", "archive:Dr2/", "DrCommon/",  "Dr2/", "Dr1/" };
 const char * ArchiveFolderNames[] = { "bin", "cg", "flash", "model", "modelbg", "module", "se", "texture", "texture/low", "bin", "cg", "flash", "font", "icon", "movie", "script", "voice", "texture", "save_icon" };
 
 int File::GetFilePath(char * ResultDest, char * FileName, int a3)
@@ -34,13 +33,13 @@ int File::GetFilePath(char * ResultDest, char * FileName, int a3)
 
 	if (Data::Game == Data::Games::DR1)
 	{
-		sprintf(v3, "%s%s%s", &Data::GamePath[0], ArchiveRoots[4], v4);
+		sprintf(v3, "%s/mods/%s/%s%s", &Data::GamePath[0], &Data::ModName[0], ArchiveRoots[5], v4);
 
 		if (FileExists(v3))
 		{
 			sprintf(v3, "[GAME] Loading modded file: %s", v4);
 			Console::WriteLine(v3);
-			return sprintf(ResultDest, "%s%s", ArchiveRoots[4], v4);
+			return sprintf(ResultDest, "mods/%s/%s%s", &Data::ModName[0], ArchiveRoots[5], v4);
 		}
 
 		sprintf(v3, "[GAME] Loading file: %s", v4);
@@ -51,13 +50,13 @@ int File::GetFilePath(char * ResultDest, char * FileName, int a3)
 
 	if (Data::Game == Data::Games::DR2)
 	{
-		sprintf(v3, "%s%s%s", &Data::GamePath[0], ArchiveRoots[3], v4);
+		sprintf(v3, "%s/mods/%s/%s%s", &Data::GamePath[0], &Data::ModName[0], ArchiveRoots[4], v4);
 
 		if (FileExists(v3))
 		{
 			sprintf(v3, "[GAME] Loading modded file: %s", v4);
 			Console::WriteLine(v3);
-			return sprintf(ResultDest, "%s%s", ArchiveRoots[3], v4);
+			return sprintf(ResultDest, "mods/%s/%s%s", &Data::ModName[0], ArchiveRoots[4], v4);
 		}
 
 		sprintf(v3, "[GAME] Loading file: %s", v4);

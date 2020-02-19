@@ -42,6 +42,7 @@ public:
 	static const DetourInfo DanganDetourInfo[];
 
 	static string GamePath;
+	static string ModName;
 
 
 	//static const float * mypointer = reinterpret_cast<float*>(AbsolouteAddress(0x3A72C4));

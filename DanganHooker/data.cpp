@@ -3,7 +3,10 @@
 #include "File.h"
 
 using namespace std; 
+
 string Data::GamePath = "";
+string Data::ModName = "MyFirstMod";
+
 int Data::Game = -1;
 
 const Data::DetourInfo Data::DanganDetourInfo[1] =
