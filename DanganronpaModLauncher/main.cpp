@@ -14,7 +14,7 @@ enum DRGames
 
 bool InjectDLL(DWORD ProcessID);
 
-int Game = 1;
+int Game = 0;
 char DanganHookerName[] = "DanganHooker.dll";
 const char * ProcessNames[] = { "DR1_us.exe", "DR2_us.exe", "game.exe" };
 const char * GameIDs[] = { "413410", "413420", "555950" };

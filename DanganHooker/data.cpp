@@ -9,9 +9,10 @@ string Data::ModName = "MyFirstMod";
 
 int Data::Game = -1;
 
-const Data::DetourInfo Data::DanganDetourInfo[1] =
+const Data::DetourInfo Data::DanganDetourInfo[2] =
 {
-	{0xC46A0, 0xC4717, File::GetFilePath, "FUNC_FILE_GETPATH"}
+	{0xC46A0, 0xC4717, File::GetFilePath, "FUNC_FILE_GETPATH"},
+	{0x4D178, 0x4D17F, Scripting::GetOperationFunction, "INST_SCRIPTING_GET_OPFUNC"}
 };
 const Data::DetourInfo Data::Dangan2DetourInfo[3] = 
 {

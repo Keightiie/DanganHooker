@@ -19,7 +19,7 @@ bool Hook::InitiateHooks()
 	}
 	if (Data::Game == Data::Games::DR1) 
 	{
-		for (int a = 0; a < 1; a++)
+		for (int a = 0; a < 2; a++)
 		{
 			DetourInstructions(Data::DanganDetourInfo[a].AddressStart, Data::DanganDetourInfo[a].AddressEnd, Data::DanganDetourInfo[a].DetourFunction);
 		}
@@ -47,6 +47,27 @@ bool Hook::InitiateOpcodes()
 		//Load custom opcodes into the new array.
 		Scripting::LoadCustomOpcodes();
 	}
+
+	if (Data::Game == Data::Games::DR1)
+	{
+		//Reads the memory for existing opcode addresses and stores them in the new array.
+		for (int a = 0; a <= 0x3C; a++)
+		{
+			Scripting::OperationFunctions[a] = ReadPointer(0x2943A8 + (4 * a));
+		}
+
+		//Overwrites the one byte in the opcode count compare since the instruction is too small to detour.
+		WriteByte(0x4D172, Scripting::Cnt_opcodes);
+
+		//Creates a jump to address for the function to return to.
+		Scripting::ADDRESS_ReturnGetOpFunc = AbsolouteAddress(Data::DanganDetourInfo[1].AddressEnd);
+
+		//Load custom opcodes into the new array.
+		Scripting::LoadCustomOpcodes();
+
+		//Data::ADDRESS_ReturnCrashAndBurn = AbsoluteAddress(Data::DanganDetourInfo[2].AddressEnd);
+	}
+
 	return true;
 }
 
@@ -116,10 +137,6 @@ void Hook::Init()
 		{
 			Console::WriteLine("[DEBUG] Custom opcodes have been enabled!");
 		}
-
-		//Data::mypointer = reinterpret_cast<float*>(AbsolouteAddress(0x3A72C4)); 
-		//
-		//*Data::mypointer = 5000;
 
 
 		Hooked = true;
