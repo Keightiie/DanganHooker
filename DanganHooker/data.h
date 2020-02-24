@@ -45,6 +45,6 @@ public:
 	static string ModName;
 
 
-	//static const float * mypointer = reinterpret_cast<float*>(AbsolouteAddress(0x3A72C4));
+	//static const float * mypointer = reinterpret_cast<float*>(AbsoluteAddress(0x3A72C4));
 
 };

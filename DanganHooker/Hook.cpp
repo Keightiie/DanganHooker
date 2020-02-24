@@ -2,7 +2,7 @@
 #include "data.h"
 #include "Scripting.h"
 
-DWORD Hook::AbsolouteAddress(DWORD ExeAddress)
+DWORD Hook::AbsoluteAddress(DWORD ExeAddress)
 {
 	return ExeAddress + BaseAddress + 0x1000;
 }
@@ -31,18 +31,34 @@ bool Hook::InitiateHooks()
 
 bool Hook::InitiateOpcodes()
 {
-	if (Data::Game == Data::Games::DR2){
+	if (Data::Game == Data::Games::DR2) {
 		//Reads the memory for existing opcode addresses and stores them in the new array.
 		for (int a = 0; a < 77; a++)
 		{
 			Scripting::OperationFunctions[a] = ReadPointer(0x30B910 + (4 * a));
 		}
-		
-		//Overwrites the one byte in the opcode count compare since the instruction is too small to detour.
-		WriteByte(0x7D2B8, Scripting::Cnt_opcodes);
+
+		if (Scripting::Cnt_opcodes <= 0xFF)
+		{
+			//Overwrites the one byte in the opcode count compare since the instruction is too small to detour.
+			WriteByte(0x7D2B8, Scripting::Cnt_opcodes);
+		}
+		else
+		{
+			//NOP out the comparison; there's no point
+			void* FuncToDetour = reinterpret_cast<void*>(AbsoluteAddress(0x7D2B8));
+
+			DWORD CurrentProtection;
+			VirtualProtect(FuncToDetour, 6, PAGE_EXECUTE_READWRITE, &CurrentProtection);
+
+			memset(FuncToDetour, 0x90, 6);
+
+			DWORD Temp;
+			VirtualProtect(FuncToDetour, 6, CurrentProtection, &Temp);
+		}
 
 		//Creates a jump to address for the function to return to.
-		Scripting::ADDRESS_ReturnGetOpFunc = AbsolouteAddress(Data::Dangan2DetourInfo[1].AddressEnd);
+		Scripting::ADDRESS_ReturnGetOpFunc = AbsoluteAddress(Data::Dangan2DetourInfo[1].AddressEnd);
 
 		//Load custom opcodes into the new array.
 		Scripting::LoadCustomOpcodes();
@@ -56,11 +72,26 @@ bool Hook::InitiateOpcodes()
 			Scripting::OperationFunctions[a] = ReadPointer(0x2943A8 + (4 * a));
 		}
 
-		//Overwrites the one byte in the opcode count compare since the instruction is too small to detour.
-		WriteByte(0x4D172, Scripting::Cnt_opcodes);
+		if (Scripting::Cnt_opcodes <= 0xFF) 
+		{
+			//Overwrites the one byte in the opcode count compare since the instruction is too small to detour.
+			WriteByte(0x4D172, Scripting::Cnt_opcodes);
+		} else
+		{
+			//NOP out the comparison; there's no point
+			void* FuncToDetour = reinterpret_cast<void*>(AbsoluteAddress(0x4D16F));
+
+			DWORD CurrentProtection;
+			VirtualProtect(FuncToDetour, 6, PAGE_EXECUTE_READWRITE, &CurrentProtection);
+
+			memset(FuncToDetour, 0x90, 6);
+			
+			DWORD Temp;
+			VirtualProtect(FuncToDetour, 6, CurrentProtection, &Temp);
+		}
 
 		//Creates a jump to address for the function to return to.
-		Scripting::ADDRESS_ReturnGetOpFunc = AbsolouteAddress(Data::DanganDetourInfo[1].AddressEnd);
+		Scripting::ADDRESS_ReturnGetOpFunc = AbsoluteAddress(Data::DanganDetourInfo[1].AddressEnd);
 
 		//Load custom opcodes into the new array.
 		Scripting::LoadCustomOpcodes();
@@ -82,7 +113,7 @@ bool Hook::DetourInstructions(DWORD HookAddress, DWORD HookAddressEnd, void * Ne
 
 	Console::WriteLine("[DEBUG] Instructions being replaced.");
 
-	void * FuncToDetour = (void*)AbsolouteAddress(HookAddress);
+	void * FuncToDetour = (void*)AbsoluteAddress(HookAddress);
 
 	DWORD CurrentProtection;
 	VirtualProtect(FuncToDetour, Length, PAGE_EXECUTE_READWRITE, &CurrentProtection);
@@ -102,13 +133,13 @@ bool Hook::DetourInstructions(DWORD HookAddress, DWORD HookAddressEnd, void * Ne
 
 bool Hook::WritePointer(DWORD PointerAddress, DWORD Pointer)
 {
-	*(DWORD*)(AbsolouteAddress(PointerAddress)) = Pointer;
+	*(DWORD*)(AbsoluteAddress(PointerAddress)) = Pointer;
 	return true;
 }
 
 bool Hook::WriteByte(DWORD ByteAddress, BYTE Byte)
 {
-	char * ByteToWriteTo = (char*)AbsolouteAddress(ByteAddress);
+	char * ByteToWriteTo = (char*)AbsoluteAddress(ByteAddress);
 	DWORD curProtection;
 	VirtualProtect(ByteToWriteTo, 1, PAGE_EXECUTE_READWRITE, &curProtection);
 
@@ -147,6 +178,6 @@ void Hook::Init()
 
 DWORD Hook::ReadPointer(DWORD PointerAddress)
 {
-	return *(DWORD*)(AbsolouteAddress(PointerAddress));
+	return *(DWORD*)(AbsoluteAddress(PointerAddress));
 }
 
