@@ -8,8 +8,6 @@ class Hook
 {
 private:
 	bool Hooked = false;
-	DWORD BaseAddress = 0;
-	DWORD AbsoluteAddress(DWORD ExeAddress);
 
 	//Initiate the Hooking Process
 	bool InitiateHooks();
