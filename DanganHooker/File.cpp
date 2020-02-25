@@ -37,13 +37,11 @@ int File::GetFilePath(char * ResultDest, char * FileName, int a3)
 
 		if (FileExists(v3))
 		{
-			sprintf(v3, "[GAME] Loading modded file: %s", v4);
-			Console::WriteLine(v3);
+			Console::WriteLine("[GAME] Loading modded file: %s", v4);
 			return sprintf(ResultDest, "mods/%s/%s%s", &Data::ModName[0], ArchiveRoots[5], v4);
 		}
 
-		sprintf(v3, "[GAME] Loading file: %s", v4);
-		Console::WriteLine(v3);
+		Console::WriteLine("[GAME] Loading file: %s", v4);
 		return sprintf(ResultDest, "%s%s", ArchiveRoots[1], v4);
 
 	}
@@ -54,13 +52,11 @@ int File::GetFilePath(char * ResultDest, char * FileName, int a3)
 
 		if (FileExists(v3))
 		{
-			sprintf(v3, "[GAME] Loading modded file: %s", v4);
-			Console::WriteLine(v3);
+			Console::WriteLine("[GAME] Loading modded file: %s", v4);
 			return sprintf(ResultDest, "mods/%s/%s%s", &Data::ModName[0], ArchiveRoots[4], v4);
 		}
 
-		sprintf(v3, "[GAME] Loading file: %s", v4);
-		Console::WriteLine(v3);
+		Console::WriteLine("[GAME] Loading file: %s", v4);
 		return sprintf(ResultDest, "%s%s", ArchiveRoots[2], v4);
 	}
 
