@@ -121,6 +121,7 @@
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Hook.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MemoryAddresses.cpp" />
     <ClCompile Include="Scripting.cpp" />
     <ClCompile Include="sound.cpp" />
   </ItemGroup>
@@ -130,6 +131,7 @@
     <ClInclude Include="File.h" />
     <ClInclude Include="Hook.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="MemoryAddresses.h" />
     <ClInclude Include="Scripting.h" />
     <ClInclude Include="sound.h" />
   </ItemGroup>

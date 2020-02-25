@@ -8,15 +8,13 @@ class Hook
 {
 private:
 	bool Hooked = false;
-	DWORD BaseAddress = 0;
-	DWORD AbsolouteAddress(DWORD ExeAddress);
 
 	//Initiate the Hooking Process
 	bool InitiateHooks();
 	bool InitiateOpcodes();
 
 	//Write to Memory
-	bool DetourInstructions(DWORD HookAddress, DWORD HookAddressEnd, void * FuncitonToDetour);
+	bool DetourInstructions(DWORD HookAddress, DWORD HookAddressEnd, void * FunctionToDetour);
 	bool WritePointer(DWORD PointerAddress, DWORD Pointer);
 	bool WriteByte(DWORD ByteAddress, BYTE Byte);
 

@@ -1,10 +1,11 @@
 #pragma once
 #include <Windows.h>
+
 class Scripting
 {
 public:
 
-	static const BYTE Cnt_opcodes = 0xFF;
+	static const int Cnt_opcodes = 0x100;
 	static DWORD OperationFunctions[];
 	static DWORD ADDRESS_ReturnGetOpFunc;
 

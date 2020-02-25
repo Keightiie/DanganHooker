@@ -2,6 +2,7 @@
 #include "console.h"
 #include "data.h"
 #include "Hook.h"
+#include "MemoryAddresses.h"
 
 using namespace std;
 
@@ -16,10 +17,13 @@ DWORD WINAPI MainThread(LPVOID param)
 	if (strstr(path, "DR1_us.exe") != nullptr)
 	{
 		Data::Game = Data::Games::DR1;
+		CommonAddresses::BaseAddress = DWORD(GetModuleHandleA("DR1_us.exe"));
+		
 	}
 	else if (strstr(path, "DR2_us.exe") != nullptr)
 	{
 		Data::Game = Data::Games::DR2;
+		CommonAddresses::BaseAddress = DWORD(GetModuleHandleA("DR2_us.exe"));
 	}
 	else
 	{
