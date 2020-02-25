@@ -15,10 +15,10 @@ void Console::Write(char const* const _Format, ...)
 	char buffer[256];
 	va_list args;
 	va_start(args, _Format);
-	int result = vsnprintf(buffer, sizeof(buffer), _Format, args);
-	
-	DWORD Written;
-	WriteConsole(m_Screen, buffer, sizeof(buffer), &Written, NULL);
+
+	DWORD Written = vsnprintf(buffer, sizeof(buffer), _Format, args);
+
+	WriteConsole(m_Screen, buffer, Written, &Written, NULL);
 }
 
 void Console::WriteLine(char const* const _Format, ...)
@@ -26,10 +26,10 @@ void Console::WriteLine(char const* const _Format, ...)
 	char buffer[256];
 	va_list args;
 	va_start(args, _Format);
-	vsnprintf(buffer, sizeof(buffer), _Format, args);
-	
-	DWORD Written;
-	WriteConsole(m_Screen, buffer, sizeof(buffer), &Written, NULL);
+
+	DWORD Written = vsnprintf(buffer, sizeof(buffer), _Format, args);
+
+	WriteConsole(m_Screen, buffer, Written, &Written, NULL);
 	WriteConsole(m_Screen, "\n", strlen("\n"), &Written, NULL);
 }
 
