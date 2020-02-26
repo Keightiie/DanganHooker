@@ -12,6 +12,12 @@ public:
 	static void GetOperationFunction();
 	static void LoadCustomOpcodes();
 
+	//
+	static const DWORD ScriptPointerAddresses[];
+	static const DWORD ScriptPositionAddresses[];
+	static BYTE ReadByte();
+
+
 	//opcode Functions
 	static void TEST_CustomOpcode();
 };
