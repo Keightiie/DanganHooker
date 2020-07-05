@@ -5,7 +5,9 @@
 class File
 {
 public:
-	static int GetFilePath(char * ResultDest, char * a2, int a3);
+	static void FUN_004c56a0(char* ResultDest, char* fileName, int a3);
+	static void FUN_004c58c0(char* ResultDest, char* fileName, int a3);
+	static void FUN_004c5b00(char* ResultDest, char* fileName, int a3);
 	static bool FileExists(const char *filename);
 };
 

@@ -30,6 +30,7 @@ public:
 class CommonAddresses
 {
 public:
+	static const DWORD CUR_FOLDER_ROOT[];
 	static DWORD BaseAddress;
 	static DWORD ReturnGetOpFunc;
 };
@@ -43,3 +44,4 @@ static DWORD RelativeAddress(DWORD AbsoluteAddress)
 {
 	return AbsoluteAddress - CommonAddresses::BaseAddress - 0x1000;
 }
+
