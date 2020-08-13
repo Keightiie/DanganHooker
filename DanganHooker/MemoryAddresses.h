@@ -5,6 +5,9 @@ public:
 	const static DWORD FILE_PATH_START = 0xC46A0;
 	const static DWORD FILE_PATH_END = 0xC4717;
 
+	const static DWORD FILE_PATH2_START = 0xC4B00;
+	const static DWORD FILE_PATH2_END = 0xC4C79;
+
 	const static DWORD OPCODE_FUNCTION_ARRAY = 0x2943A8;
 	const static DWORD OPCODE_SIZE_CMP_INSTRUCTION = 0x4D16F;
 	const static DWORD OPCODE_START = 0x4D178;

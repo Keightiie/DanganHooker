@@ -7,7 +7,7 @@ class File
 public:
 	static void FUN_004c56a0(char* ResultDest, char* fileName, int a3);
 	static void FUN_004c58c0(char* ResultDest, char* fileName, int a3);
-	static void FUN_004c5b00(char* ResultDest, char* fileName, int a3);
+	static void FUN_004c5b00(char* filename, int param2, int *param3);
 	static bool FileExists(const char *filename);
 };
 
